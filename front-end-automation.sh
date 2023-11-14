@@ -9,7 +9,7 @@ cp expense.conf /etc/nginx/default.d/expense.conf
 rm -rf /usr/share/nginx/html/*
 
 echo -e "\e[36m Download frontend application code \e[0m"
-curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip
+curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip &>>/tmp/expense.log
 cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>/tmp/expense.log
 echo -e "\e[36m Restrting Nginx ngninx \e[0m"
