@@ -1,16 +1,18 @@
 #!/bin/bash
+log_file=/tmp/expense.log
+color="\e[36m"
 echo -e "\e[36m Installing ngninx \e[0m"
-dnf install nginx -y &>>/tmp/expense.log
-echo -e "\e[36m Enabling  ngninx \e[0m"
+dnf install nginx -y &>>$log_file
+echo -e "${color} Enabling  ngninx \e[0m"
 systemctl enable nginx &>>/tmp/expense.log
-echo -e "\e[36m Starting ngninx \e[0m"
-systemctl start nginx &>>/tmp/expense.log
+echo -e "${color} Starting ngninx \e[0m"
+systemctl start nginx &>>$log_file
 cp expense.conf /etc/nginx/default.d/expense.conf
 rm -rf /usr/share/nginx/html/*
 
-echo -e "\e[36m Download frontend application code \e[0m"
-curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip &>>/tmp/expense.log
+echo -e "${color} Download frontend application code \e[0m"
+curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip &>>$log_file
 cd /usr/share/nginx/html
-unzip /tmp/frontend.zip &>>/tmp/expense.log
-echo -e "\e[36m Restrting Nginx ngninx \e[0m"
-systemctl restart nginx &>>/tmp/expense.log
+unzip /tmp/frontend.zip &>>$log_file
+echo -e "${color} Restrting Nginx ngninx \e[0m"
+systemctl restart  nginx &>>$log_file
